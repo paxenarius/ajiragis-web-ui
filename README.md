@@ -1,4 +1,4 @@
-# ajiragis_web_ui
+# ajiragis-web-ui
 
 > Nuxt.js + Vuetify.js project
 
@@ -20,3 +20,4 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out the [Nuxt.js](https://github.com/nuxt/nuxt.js) and [Vuetify.js](https://vuetifyjs.com/) documentation.
+
