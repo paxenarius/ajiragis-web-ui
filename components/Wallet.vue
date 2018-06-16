@@ -23,10 +23,10 @@
                     </v-flex>
                     <v-flex d-flex xs12 sm6 md3>
                       <v-layout row wrap>
-                        <v-flex d-flex style="padding: 0;">
+                        <v-flex d-flex xs12 style="padding: 0;">
                           <div class="headline grey--text text--darken-1">10000</div>
                         </v-flex>
-                        <v-flex d-flex style="padding: 0;">
+                        <v-flex d-flex xs12 style="padding: 0;">
                           <span class="grey--text text--lighten-1">Ajira Points</span>
                         </v-flex>
                       </v-layout>
