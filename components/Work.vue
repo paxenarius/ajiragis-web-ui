@@ -6,7 +6,7 @@
     >
         <v-toolbar color="grey lighten-2">
             <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
-            <v-toolbar-title class="black--text">Work</v-toolbar-title>
+            <v-toolbar-title class="black--text">my Work</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-toolbar>
         <v-card>
@@ -21,14 +21,14 @@
                                 <v-container fluid grid-list-md>
                                     <v-layout row >
                                         <v-flex d-flex xs12 sm6 md4>
-                                            <v-icon large color="green">bar_chart</v-icon>
+                                            <v-icon x-large color="green">bar_chart</v-icon>
                                         </v-flex>
                                         <v-flex d-flex xs12 sm6 md3>
                                             <v-layout row wrap>
-                                                <v-flex d-flex>
-                                                    <span class="headline grey--text text--darken-1">500</span>
+                                                <v-flex d-flex style="padding: 0;">
+                                                    <div class="headline grey--text text--darken-1">500</div>
                                                 </v-flex>
-                                                <v-flex d-flex>
+                                                <v-flex d-flex style="padding: 0;">
                                                     <span class="grey--text text--lighten-1">Translations</span>
                                                 </v-flex>
                                             </v-layout>
@@ -38,7 +38,7 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn dark color="green">Request Work</v-btn>
+                                <v-btn style="margin: 0;" dark color="green">Request Work</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-flex>
