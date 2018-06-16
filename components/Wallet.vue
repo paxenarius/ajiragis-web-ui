@@ -4,6 +4,7 @@
       style="max-width: 400px; margin: auto;"
       class="grey lighten-3">
     <v-toolbar color="grey lighten-2">
+      <v-icon>business_center</v-icon>
       <v-toolbar-title class="black--text">my Wallet</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>

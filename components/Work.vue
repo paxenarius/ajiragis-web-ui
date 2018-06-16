@@ -6,6 +6,7 @@
     >
         <v-toolbar color="grey lighten-2">
             <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
+            <v-icon>devices</v-icon>
             <v-toolbar-title class="black--text">my Work</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-toolbar>
