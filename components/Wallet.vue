@@ -12,8 +12,8 @@
           fluid
           style="min-height: 0; padding: 0 !important;">
         <v-layout row wrap>
-          <v-flex xs12>
-            <v-card color="white" light>
+          <v-flex xs12 style="padding-bottom: 0">
+            <v-card color="white" light style="padding: 0; margin: 0">
               <v-card-text>
                 <v-container fluid grid-list-md>
                   <v-layout row>
