@@ -1,49 +1,36 @@
 <template>
-  <div
-      id="e3"
-      style="max-width: 400px; margin: auto;"
-      class="grey lighten-3"
-  >
+  <v-card tile style="max-width: 400px" height="100%">
     <v-toolbar color="grey lighten-2">
       <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
       <v-icon>devices</v-icon>
       <v-toolbar-title class="black--text">my Work</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn style="margin: 0;" dark small flat color="green">Work
+        <v-icon>arrow_forward</v-icon>
+      </v-btn>
     </v-toolbar>
-    <v-card>
-      <v-container fluid style="min-height: 0; padding: 0 !important;">
-        <v-layout row wrap>
-          <v-flex xs12 style="padding-bottom: 0">
-            <v-card color="white" light>
-              <v-card-text>
-                <v-container fluid grid-list-md>
-                  <v-layout row>
-                    <v-flex d-flex xs12 sm6 md4>
-                      <v-icon x-large color="green">bar_chart</v-icon>
-                    </v-flex>
-                    <v-flex d-flex xs12 sm6 md3>
-                      <v-layout row wrap>
-                        <v-flex xs12 style="padding: 0;">
-                          <div class="headline grey--text text--darken-1">500</div>
-                        </v-flex>
-                        <v-flex xs12 style="padding: 0;">
-                          <span class="grey--text text--lighten-1">Translations</span>
-                        </v-flex>
-                      </v-layout>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn style="margin: 0;" dark color="green">Request Work</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card>
-  </div>
+    <v-container>
+      <v-layout row >
+        <v-flex d-flex xs12 sm6 md4>
+          <v-icon x-large color="green">bar_chart</v-icon>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 md3>
+          <v-layout row wrap>
+            <v-flex xs12 style="padding: 0;">
+              <div class="headline grey--text text--darken-1">500</div>
+            </v-flex>
+            <v-flex xs12 style="padding: 0;">
+              <span class="grey--text text--lighten-1">Translations</span>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <!--<v-card-actions>-->
+      <!--<v-spacer></v-spacer>-->
+      <!--<v-btn style="margin: 0;" dark flat color="green">Request Work</v-btn>-->
+    <!--</v-card-actions>-->
+  </v-card>
 </template>
 
 <script>
