@@ -64,7 +64,7 @@
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'compare_arrows', title: 'translate', to: '/translate' }
+          { icon: 'compare_arrows', title: 'Translate', to: '/translate' }
         ],
         miniVariant: false,
         right: true,
