@@ -63,7 +63,8 @@
         drawer: true,
         fixed: false,
         items: [
-          { icon: 'apps', title: 'Welcome', to: '/' }
+          { icon: 'apps', title: 'Welcome', to: '/' },
+          { icon: 'compare_arrows', title: 'translate', to: '/translate' }
         ],
         miniVariant: false,
         right: true,
