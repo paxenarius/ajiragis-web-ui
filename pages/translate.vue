@@ -18,8 +18,8 @@
           <v-layout row wrap>
             <v-flex xs5>
               <v-select
-                  :items="items"
-                  v-model="e1"
+                  :items="fromLanguages"
+                  v-model="languageFrom"
                   label="From"
                   single-line
               ></v-select>
@@ -33,8 +33,8 @@
             </v-flex>
             <v-flex xs5>
               <v-select
-                  :items="items"
-                  v-model="e2"
+                  :items="toLanguages"
+                  v-model="languageTo"
                   label="To"
                   single-line
               ></v-select>
@@ -46,25 +46,35 @@
           <v-text-field
               name="input-7-1"
               label="Type translation"
+          ></v-text-field>
+          <v-text-field
+              name="input-7-1"
+              label="Use it in a sentence"
               multi-line
           ></v-text-field>
+          <v-select
+              :items="items"
+              v-model="partOfSpeech"
+              label="Part of speech"
+              single-line
+          ></v-select>
+          <v-slider label="Confidence" v-model="confidence" color="blue"></v-slider>
         </v-card-text>
-        <!--<v-card-actions>-->
-        <!--<v-btn flat color="orange">Share</v-btn>-->
-        <!--<v-btn flat color="orange">Explore</v-btn>-->
-        <!--</v-card-actions>-->
+        <v-card-actions>
+        <v-btn flat color="red">
+          <v-icon color="red">
+            clear
+          </v-icon>
+          Done
+        </v-btn>
+          <v-spacer></v-spacer>
+        <v-btn flat color="blue">
+          Next
+          <v-icon color="blue">arrow_right_alt</v-icon>
+        </v-btn>
+        </v-card-actions>
       </v-card>
     </div>
-    <v-layout column>
-      <v-flex mt-3 class="text-md-center" xs12>
-        <h3>
-          my Confidence Level
-        </h3>
-      </v-flex>
-      <v-flex xs12>
-        <!--todo start here-->
-      </v-flex>
-    </v-layout>
   </div>
 
 </template>
@@ -74,8 +84,10 @@
       name: 'mywork',
       data () {
         return {
-          e1: null,
-          e2: null,
+          languageFrom: null,
+          languageTo: null,
+          partOfSpeech: null,
+          confidence: 0,
           items: [
             { text: 'State 1' },
             { text: 'State 2' },
@@ -84,6 +96,85 @@
             { text: 'State 5' },
             { text: 'State 6' },
             { text: 'State 7' }
+          ],
+          fromLanguages: [
+            {text: 'Kisii'},
+            {text: 'Maasai'}
+          ],
+          toLanguages: [
+            {text: 'English'},
+            {text: 'Swahili'},
+            {text: 'Gikuyu'},
+            {text: 'Luo'}
+          ],
+          kisii: [
+            'Inchu',
+            'Genda',
+            'Tara',
+            'Minyoka',
+            'Kwana',
+            'Ogokwania',
+            'Rika',
+            'Tegerera',
+            'Rigereria',
+            'Abanto',
+            'Omonto',
+            'Omosacha',
+            'Omokungu',
+            'Omomura',
+            'Omoiseke',
+            'Tata',
+            'Mama',
+            'Endgera',
+            'Okokima',
+            'Chinyeni',
+            'Enyama',
+            'Omogati',
+            'Echae',
+            'Amache',
+            'Amabere',
+            'Obori/wimbi',
+            'Ebituma',
+            'Amarabwoni',
+            'Abukato',
+            'Omochere',
+            'Abukato',
+            'Amatoke',
+            'Ebisukari',
+            'Esukari',
+            'Omonyo'
+          ],
+          maasai: [
+            'Engatek/dukuya',
+            'oliare',
+            'Taisere',
+            'Tataji',
+            'Kewarrie',
+            'Taisere',
+            'Ermatunda',
+            'Ermariko',
+            'Enyanya',
+            'Ermurungu',
+            'Engitunguu',
+            'Olodo',
+            'Olonyori',
+            'Embuse',
+            'Oloiborr',
+            'Olorok',
+            'Olmuje',
+            'Edaa E tedekanya',
+            'EdaaE dama',
+            'Edaa Nilo Airraje',
+            'Kule',
+            'arkahawa',
+            'olmukate',
+            'Etikinya',
+            'Osiuo',
+            'Enjan/ehaita',
+            'Albarafu',
+            'Erobi',
+            'Erowua',
+            'Alayeni'
           ]
         }
       }
