@@ -5,7 +5,7 @@
       <v-icon>devices</v-icon>
       <v-toolbar-title class="black--text">my Work</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn style="margin: 0;" dark small flat color="green">Work
+      <v-btn style="margin: 0;" dark small flat color="green" @click="work()">Work
         <v-icon>arrow_forward</v-icon>
       </v-btn>
     </v-toolbar>
@@ -38,7 +38,12 @@
     name: 'Work',
     data: () => ({
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-    })
+    }),
+    methods: {
+      work () {
+        this.$router.push({path: 'translate'})
+      }
+    }
   }
 </script>
 

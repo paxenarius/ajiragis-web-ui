@@ -41,8 +41,9 @@
               ></v-select>
             </v-flex>
           </v-layout>
+          <h4 v-if="word">Translate the following word</h4>
           <h3 class="headline mb-0">
-            Translate word: {{word}}
+             <span class="blue--text">{{word}}</span>
           </h3>
           <v-text-field
               name="input-7-1"
@@ -91,7 +92,7 @@
           languageTo: {},
           partOfSpeech: null,
           confidence: 0,
-          word: '',
+          word: null,
           points: 0,
           translation: '',
           sentence: '',
