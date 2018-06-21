@@ -62,7 +62,15 @@
               label="Part of speech"
               single-line
           ></v-select>
-          <v-slider label="Confidence" v-model="confidence" color="blue"></v-slider>
+          <v-layout row wrap>
+            <v-flex xs11>
+              <v-slider label="Confidence" v-model="confidence" color="blue"></v-slider>
+            </v-flex>
+            <v-flex xs1>
+              <v-text-field v-model="confidence" type="number"></v-text-field>
+            </v-flex>
+          </v-layout>
+
         </v-card-text>
         <v-card-actions>
         <v-btn flat color="red" @click="done()">

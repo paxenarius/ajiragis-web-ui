@@ -15,6 +15,10 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
+  mode: 'spa',
+  generate: {
+    fallback: true // if you want to use '404.html'
+  },
   plugins: ['~/plugins/vuetify.js', '~/plugins/fireauth.js'],
   css: [
     '~/assets/style/app.styl'
