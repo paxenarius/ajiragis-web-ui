@@ -6,6 +6,7 @@
       v-model="drawer"
       fixed
       app
+      v-if="user"
     >
       <v-list>
         <v-list-tile
@@ -25,9 +26,41 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="drawer = !drawer" v-if="user"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <div v-if="user" id="user" class="text-xs-center">
+        <v-menu
+            offset-x
+            :close-on-content-click="false"
+            :nudge-top="200"
+            v-model="menu">
+          <v-btn icon slot="activator"><v-icon medium>more_vert</v-icon></v-btn>
+          <v-card dark color="red darken-1">
+            <v-list>
+              <v-list-tile avatar>
+                <v-list-tile-avatar>
+                  <img :src="$store.state.user.photoURL" alt="John">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title v-if="user.displayName">{{user.displayName}}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+
+              <v-list-tile>
+                <v-spacer></v-spacer>
+                <v-list-tile-action>
+                  <v-btn primary class="mt-2" color="red darken-2" @click.native="logout">
+                    Logout
+                  </v-btn>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+        </v-menu>
+
+      </div>
     </v-toolbar>
     <v-content>
       <v-container>
@@ -69,7 +102,20 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Ajira Translator'
+        title: 'Ajira Translator',
+        menu: false
+      }
+    },
+    computed: {
+      user () {
+        return this.$store.getters.activeUser
+      }
+    },
+    methods: {
+      logout () {
+        this.$store.dispatch('signOut').then(() => {
+          this.$router.push('/')
+        })
       }
     }
   }
