@@ -8,7 +8,7 @@
       <v-toolbar light color="grey lighten-1">
         <v-toolbar-title>Translate</v-toolbar-title>
         <v-spacer></v-spacer>
-        100
+          {{points}}
         <v-btn icon>
           <v-icon>help_outline</v-icon>
         </v-btn>
@@ -22,6 +22,7 @@
                   v-model="languageFrom"
                   label="From"
                   single-line
+                  v-on:change="randomizeWord"
               ></v-select>
             </v-flex>
             <v-flex  xs2>
@@ -41,15 +42,17 @@
             </v-flex>
           </v-layout>
           <h3 class="headline mb-0">
-            Word or Sentence
+            Translate word: {{word}}
           </h3>
           <v-text-field
               name="input-7-1"
-              label="Type translation"
+              label="Translation"
+              v-model="translation"
           ></v-text-field>
           <v-text-field
               name="input-7-1"
               label="Use it in a sentence"
+              v-model="sentence"
               multi-line
           ></v-text-field>
           <v-select
@@ -61,14 +64,14 @@
           <v-slider label="Confidence" v-model="confidence" color="blue"></v-slider>
         </v-card-text>
         <v-card-actions>
-        <v-btn flat color="red">
+        <v-btn flat color="red" @click="done()">
           <v-icon color="red">
             clear
           </v-icon>
           Done
         </v-btn>
           <v-spacer></v-spacer>
-        <v-btn flat color="blue">
+        <v-btn flat color="blue" @click="next()">
           Next
           <v-icon color="blue">arrow_right_alt</v-icon>
         </v-btn>
@@ -84,18 +87,23 @@
       name: 'mywork',
       data () {
         return {
-          languageFrom: null,
-          languageTo: null,
+          languageFrom: {},
+          languageTo: {},
           partOfSpeech: null,
           confidence: 0,
+          word: '',
+          points: 0,
+          translation: '',
+          sentence: '',
           items: [
-            { text: 'State 1' },
-            { text: 'State 2' },
-            { text: 'State 3' },
-            { text: 'State 4' },
-            { text: 'State 5' },
-            { text: 'State 6' },
-            { text: 'State 7' }
+            { text: 'Noun' },
+            { text: 'Verb' },
+            { text: 'Participle' },
+            { text: 'Article' },
+            { text: 'Pronoun' },
+            { text: 'Preposition' },
+            { text: 'Adverb' },
+            { text: 'Conjunction' }
           ],
           fromLanguages: [
             {text: 'Kisii'},
@@ -176,6 +184,34 @@
             'Erowua',
             'Alayeni'
           ]
+        }
+      },
+      methods: {
+        randomizeWord (language) {
+          console.log(language)
+          this.languageFrom = language
+          if (language.text === 'Kisii') {
+            this.word = this.kisii[Math.floor(Math.random() * this.kisii.length)]
+          } else if (language.text === 'Maasai') {
+            this.word = this.kisii[Math.floor(Math.random() * this.kisii.length)]
+          } else {
+            this.word = 'Select word'
+          }
+        },
+        next () {
+          this.randomizeWord(this.languageFrom)
+          this.translation = ''
+          this.sentence = ''
+          this.confidence = 0
+          this.points++
+        },
+        done () {
+          this.$router.push({path: '/'})
+        }
+      },
+      watch: {
+        watchLanguagesFrom: function (newVal) {
+          this.randomizeWord(newVal)
         }
       }
     }
