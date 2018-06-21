@@ -1,7 +1,7 @@
 <template>
     <v-layout>
         <v-flex text-xs-center xs12 sm6 offset-sm3>
-            <h1>Sign In With Google</h1>
+            <h1 class="white--text">Sign In With Google</h1>
             <v-btn color="error" dark large @click.native="googleSignUp">Google</v-btn>
             <!--<v-btn color="info" dark large>Facebook</v-btn>-->
         </v-flex>

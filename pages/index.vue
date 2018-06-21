@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-container fluid grid-list-sm>
+    <div v-if="!$store.state.user">
+      <div class="text-xs-center">
+        <img src="/logo.png" alt="logo" class="mb-5" />
+      </div>
+      <login-form></login-form>
+    </div>
+    <v-container fluid grid-list-sm v-else>
       <v-layout row wrap>
         <v-flex>
           <work></work>
@@ -25,12 +31,14 @@
   import Work from '~/components/Work'
   import Wallet from '~/components/Wallet'
   import Profile from '~/components/Profile'
+  import LoginForm from '~/components/LoginForm'
 
   export default {
     components: {
       Work,
       Wallet,
-      Profile
+      Profile,
+      LoginForm
     }
   }
 </script>
