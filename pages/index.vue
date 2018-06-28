@@ -2,7 +2,7 @@
   <div>
     <div v-if="!$store.state.user">
       <div class="text-xs-center">
-        <img src="/logo.png" alt="logo" class="mb-5" />
+        <img src="/logo.png" alt="logo" class="logo" />
       </div>
       <login-form></login-form>
     </div>
@@ -22,6 +22,13 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-layout row wrap>
+        <v-flex>
+          <v-card tile>
+            <notifications></notifications>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 
@@ -31,6 +38,7 @@
   import Work from '~/components/Work'
   import Wallet from '~/components/Wallet'
   import Profile from '~/components/Profile'
+  import Notifications from '~/components/Notifications'
   import LoginForm from '~/components/LoginForm'
 
   export default {
@@ -38,6 +46,7 @@
       Work,
       Wallet,
       Profile,
+      Notifications,
       LoginForm
     }
   }

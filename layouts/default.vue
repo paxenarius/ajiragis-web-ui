@@ -25,7 +25,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
+    <v-toolbar v-if="user" fixed app :clipped-left="clipped">
       <v-toolbar-side-icon @click="drawer = !drawer" v-if="user"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
@@ -82,8 +82,8 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+    <v-footer v-if="user" :fixed="fixed" app>
+      <span>&copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
@@ -93,7 +93,7 @@
     data () {
       return {
         clipped: false,
-        drawer: true,
+        drawer: false,
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
@@ -102,7 +102,7 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Ajira Translator',
+        title: 'Ajira GIS',
         menu: false
       }
     },
