@@ -1,5 +1,8 @@
 
 module.exports = {
+  router: {
+    base: '/translator/'
+  },
   /*
   ** Headers of the page
   */
