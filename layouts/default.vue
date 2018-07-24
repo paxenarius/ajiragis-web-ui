@@ -97,6 +97,7 @@
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
+          { icon: 'input', title: 'Data-collector', to: '/collect' },
           { icon: 'compare_arrows', title: 'Translate', to: '/translate' }
         ],
         miniVariant: false,
