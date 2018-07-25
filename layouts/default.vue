@@ -9,7 +9,11 @@
       v-if="user"
     >
       <v-list>
-        <v-list-tile
+        <!--
+          Check if the item is an array in order to determine whether to treat it as a link with
+          sub-links
+        -->
+        <v-list-tile v-if="Array.isArray(item) === false"
           router
           :to="item.to"
           :key="i"
@@ -23,7 +27,52 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-list v-else>
+
+        <!-- Main link of a sub menu -->
+          <v-list-tile v-if="y == 0"
+            router
+            :to="sub_link.to"
+            :key="y"
+            v-on:click="toggleSubMenu(sub_link.toggle_on)"
+            v-for="(sub_link, y) in items[i]"
+            exact
+          >
+          <v-list-tile-action>
+            <v-icon v-html="sub_link.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="sub_link.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <!-- End of main link of a sub menu -->
+
+
+        <!-- Start of a single sub-menu -->
+
+          <v-list-tile v-if="y !== 0"
+            router
+            :to="sub_link.to"
+            :key="y"
+            v-show="submenuToggles[sub_link.toggle_on] === true"
+            v-for="(sub_link, y) in items[i]"
+            exact
+          >
+
+         <v-list-tile-action>
+            <v-icon v-html="sub_link.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="sub_link.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <!-- End of a single sub-menu -->
+        </v-list>
       </v-list>
+
     </v-navigation-drawer>
     <v-toolbar v-if="user" fixed app :clipped-left="clipped">
       <v-toolbar-side-icon @click="drawer = !drawer" v-if="user"></v-toolbar-side-icon>
@@ -97,8 +146,29 @@
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
+          [
+            {
+              icon: 'input',
+              title: 'Data-Collector',
+              to: '/Data-Collector',
+              toggle_on: 'dataCollectorClick'
+            },
+            {
+              icon: 'input',
+              title: 'Contribute',
+              to: '/contribute',
+              toggle_on: 'dataCollectorClick'
+            },
+            {
+              icon: 'table',
+              title: 'Contributions',
+              to: '/contributionslist',
+              toggle_on: 'dataCollectorClick'
+            }
+          ],
           { icon: 'compare_arrows', title: 'Translate', to: '/translate' }
         ],
+        submenuToggles: {dataCollectorClick:false},
         miniVariant: false,
         right: true,
         rightDrawer: false,
@@ -116,6 +186,14 @@
         this.$store.dispatch('signOut').then(() => {
           this.$router.push('/')
         })
+      },
+      toggleSubMenu(menu_activation_variable){
+        if(this.$data.submenuToggles[menu_activation_variable] ===  false){
+          this.$data.submenuToggles[menu_activation_variable] =  true;
+        }
+        else{
+          this.$data.submenuToggles[menu_activation_variable] =  false;
+        }
       }
     }
   }
