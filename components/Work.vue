@@ -3,7 +3,7 @@
     <v-toolbar color="grey lighten-2">
       <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
       <v-icon>devices</v-icon>
-      <v-toolbar-title class="black--text">my Work</v-toolbar-title>
+      <v-toolbar-title class="black--text">My Work</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn style="margin: 0;" dark small flat color="green" @click="work()">Work
         <v-icon>arrow_forward</v-icon>
@@ -17,7 +17,9 @@
         <v-flex d-flex xs12 sm6 md3>
           <v-layout row wrap>
             <v-flex xs12 style="padding: 0;">
-              <div class="headline grey--text text--darken-1">500</div>
+              <div class="headline grey--text text--darken-1">
+                {{ dashboardData.my_work.translations_count }}
+              </div>
             </v-flex>
             <v-flex xs12 style="padding: 0;">
               <span class="grey--text text--lighten-1">Translations</span>
@@ -39,12 +41,24 @@
     data: () => ({
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
     }),
+    props: {
+      dashboardData: {
+        type: Object,
+        required: true,
+        default: {
+          "my_work": {
+            "translations_count": 0,
+            "contribution_count": 0
+          }
+        }
+      }
+    },
     methods: {
       work () {
         this.$router.push({path: 'translate'})
       }
-    }
   }
+}
 </script>
 
 <style scoped>

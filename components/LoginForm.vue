@@ -5,6 +5,14 @@
           <v-card>
             <v-card-text class="pt-4">
               <div>
+
+                  <v-alert
+                    :value="true"
+                    v-if="loginError"
+                    type="error"
+                  >
+                    {{ LoginError }}
+                  </v-alert>
                   <v-form v-model="valid" ref="form">
                     <v-text-field
                       label="Enter your e-mail address"
@@ -24,13 +32,15 @@
                       required
                     ></v-text-field>
                     <v-layout justify-space-between>
-                        <v-btn color="info" block @click="submit" :class=" { 'blue darken-4 white--text' : valid, disabled: !valid }">Login</v-btn>
+                        <v-btn color="info" block @click="getAPIToken" :class=" { 'blue darken-4 white--text' : valid, disabled: !valid }">Login</v-btn>
                     </v-layout>
                   </v-form>
                   <h2 style="text-align: center;"> - OR - </h2>
+
                   <v-btn color="error" dark block @click.native="googleSignUp">
                     Sign in using Google
                   </v-btn>
+
                   <v-btn color="info" class="facebook" dark block>Sign in using Facebook</v-btn>
                   <v-btn color="info" dark block>Sign in using Twitter</v-btn>
               </div>
@@ -42,15 +52,30 @@
 </template>
 
 <script>
+  let loginURL = 'http://localhost:8000/ajiragis/api/v1/get_token/';
     export default {
       name: 'LoginForm',
       methods: {
-        googleSignUp () {
+        googleSignUp: function () {
           this.$store.dispatch('signInWithGoogle').then(() => {
             console.log('inside then statement on login')
           }).catch((e) => {
             console.log(e.message)
           })
+        },
+        getAPIToken: function () {
+        var self = this;
+        this.$axios.post(loginURL, {username: this.email, password:this.password})
+        .then(function (response) {
+          self.$store.commit('setUser', response.data.token);
+          window.localStorage.setItem('userToken', response.data.token);
+          self.$axios.setToken('TOKEN '+response.data.token);
+          self.$router.push({path: '/'});
+        })
+        .catch(function (error) {
+          self.loginError ="Invalid credentials provided"
+          console.log(error);
+        });
         }
       }
     }

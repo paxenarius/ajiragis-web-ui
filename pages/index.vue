@@ -9,23 +9,23 @@
     <v-container fluid grid-list-sm v-else>
       <v-layout row wrap>
         <v-flex>
-          <work></work>
+          <work :dashboardData="dashboardData"></work>
         </v-flex>
         <v-flex>
           <v-card tile style="max-width: 400px" height="100%">
-            <wallet></wallet>
+            <wallet :dashboardData="dashboardData"></wallet>
           </v-card>
         </v-flex>
         <v-flex>
           <v-card tile style="max-width: 400px" height="100%">
-            <profile></profile>
+            <profile :dashboardData="dashboardData"></profile>
           </v-card>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
         <v-flex>
           <v-card tile>
-            <notifications></notifications>
+            <notifications :dashboardData="dashboardData"></notifications>
           </v-card>
         </v-flex>
       </v-layout>
@@ -43,7 +43,28 @@
   import ContributionForm from '~/components/data_collector/Contribute'
   import ContributionsList from '~/components/data_collector/ContributionsList'
 
+  let dashboardURL = 'http://localhost:8000/ajiragis/api/v1/dashboard/'
   export default {
+    name: 'main',
+    data: () => ({
+      dashboardData: {
+          "my_work": {
+            "translations_count": 0,
+            "contribution_count": 0
+          },
+          "my_wallet": {
+              "contribution_payment": 0,
+              "translation_payment": 0
+          },
+          "my_profile": {
+              "username": "",
+              "first_name": "",
+              "last_name": "",
+              "email": ""
+          },
+          "notifications": []
+      }
+    }),
     components: {
       Work,
       Wallet,
@@ -52,6 +73,23 @@
       LoginForm,
       ContributionForm,
       ContributionsList
+    },
+    methods: {
+      getDashboard: function(){
+        var self = this;
+        this.$axios.setToken('TOKEN '+ window.localStorage.getItem('userToken'));
+        this.$axios.get(dashboardURL)
+        .then(function (response) {
+          self.dashboardData = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
+    mounted: function () {
+      this.getDashboard();
+
     }
   }
 </script>
