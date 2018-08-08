@@ -42,8 +42,11 @@
   import LoginForm from '~/components/LoginForm'
   import ContributionForm from '~/components/data_collector/Contribute'
   import ContributionsList from '~/components/data_collector/ContributionsList'
+  import axios from '~/plugins/axios'
 
-  let dashboardURL = 'http://localhost:8000/ajiragis/api/v1/dashboard/'
+
+  let dashboardURL = process.env.APIBaseUrl +'dashboard/';
+
   export default {
     name: 'main',
     data: () => ({
@@ -77,8 +80,7 @@
     methods: {
       getDashboard: function(){
         var self = this;
-        this.$axios.setToken('TOKEN '+ window.localStorage.getItem('userToken'));
-        this.$axios.get(dashboardURL)
+        axios.get(dashboardURL)
         .then(function (response) {
           self.dashboardData = response.data;
         })

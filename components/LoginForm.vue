@@ -52,7 +52,10 @@
 </template>
 
 <script>
-  let loginURL = 'http://localhost:8000/ajiragis/api/v1/get_token/';
+  import axios from '~/plugins/axios'
+
+  let loginURL = process.env.APIBaseUrl + 'get_token/';
+
     export default {
       name: 'LoginForm',
       methods: {
@@ -65,11 +68,11 @@
         },
         getAPIToken: function () {
         var self = this;
-        this.$axios.post(loginURL, {username: this.email, password:this.password})
+        axios.post(loginURL, {username: this.email, password:this.password})
         .then(function (response) {
           self.$store.commit('setUser', response.data.token);
+          axios.defaults.headers.common['Authorization'] = 'Token ' + response.data.token
           window.localStorage.setItem('userToken', response.data.token);
-          self.$axios.setToken('TOKEN '+response.data.token);
           self.$router.push({path: '/'});
         })
         .catch(function (error) {

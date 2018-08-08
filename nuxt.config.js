@@ -53,13 +53,7 @@ module.exports = {
       // }
     }
   },
-  modules: [
-    '@nuxtjs/axios'
-  ],
-  axios: {
-    prefix: '/ajiraapi/api/v1/',
-    host: 'http://localhost',
-    port: 8000,
-    credentials: true
-  },
+  env: {
+    APIBaseUrl: process.env.API_BASE_URL || 'http://localhost:8000/ajiragis/api/v1/'
+  }
 }
