@@ -7,7 +7,7 @@
         <v-toolbar-title class="black--text">Notifications</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn style="margin: 0;" dark flat small color="blue darken-1">
-        More
+        {{ dashboardData.notifications }}
         <v-icon>arrow_forward</v-icon>
         </v-btn>
     </v-toolbar>
@@ -29,7 +29,16 @@
         name: "Notifications",
         data: () => ({
             lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-        })
+        }),
+        props: {
+          dashboardData: {
+            type: Object,
+            required: true,
+            default: {
+              "notifications": []
+            }
+          }
+    },
     }
 </script>
 

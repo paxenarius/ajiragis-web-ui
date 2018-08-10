@@ -15,7 +15,12 @@
         <v-flex d-flex xs12 sm6 md3>
           <v-layout row wrap>
             <v-flex d-flex xs12 style="padding: 0;">
-              <div class="headline grey--text text--darken-1">10000</div>
+              <div class="headline grey--text text--darken-1">
+                {{
+                  dashboardData.my_wallet.contribution_payment +
+                  dashboardData.my_wallet.translation_payment
+                }}
+              </div>
             </v-flex>
             <v-flex d-flex xs12 style="padding: 0;">
               <span class="grey--text text--lighten-1">Ajira Points</span>
@@ -37,7 +42,19 @@
     name: 'Wallet',
     data: () => ({
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-    })
+    }),
+    props: {
+      dashboardData: {
+        type: Object,
+        required: true,
+        default: {
+          "my_wallet": {
+            "contribution_payment": 0,
+            "translation_payment": 0
+          }
+        }
+      }
+    }
   }
 </script>
 

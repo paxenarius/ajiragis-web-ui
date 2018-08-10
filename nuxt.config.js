@@ -52,5 +52,8 @@ module.exports = {
       //   })
       // }
     }
+  },
+  env: {
+    APIBaseUrl: process.env.API_BASE_URL || 'http://localhost:8000/ajiragis/api/v1/'
   }
 }

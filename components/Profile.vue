@@ -17,10 +17,10 @@
           <v-flex xs12 style="padding-bottom: 0">
               <v-card-text>
                 <div>
-                  <span>Name: James Mwangi</span>
+                  <span>Name: {{ dashboardData.my_profile.username }}</span>
                 </div>
                 <div>
-                  <span>Last Sign On: Yesterday</span>
+                  <span>Last Sign On: {{ dashboardData.my_profile.last_login }}</span>
                 </div>
                 <div>
                   <span>Level: Silver</span>
@@ -41,7 +41,22 @@
     name: 'Profile',
     data: () => ({
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-    })
+    }),
+    props: {
+      dashboardData: {
+        type: Object,
+        required: true,
+        default: {
+          "my_profile": {
+              "username": "",
+              "first_name": "",
+              "last_name": "",
+              "email": "",
+              "last_login": ""
+          }
+        }
+      }
+    }
   }
 </script>
 
