@@ -166,7 +166,8 @@
               toggle_on: 'dataCollectorClick'
             }
           ],
-          { icon: 'compare_arrows', title: 'Translate', to: '/translate' }
+          { icon: 'compare_arrows', title: 'Translate', to: '/translations/translate' },
+          { icon: 'compare_arrows', title: 'Translations', to: '/translations/translations' }
         ],
         submenuToggles: {dataCollectorClick:false},
         miniVariant: false,

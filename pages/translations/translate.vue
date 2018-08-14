@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 800px; margin: auto;">
+  <div>
     <div
         id="e3"
 
@@ -93,6 +93,7 @@
 
 <script>
     import axios from '~/plugins/axios'
+
     let languageUrl = process.env.APIBaseUrl +'languages/';
     let randomWordsAPI = process.env.APIBaseUrl + 'words/?random=true&language=1';
     let translationUrl = process.env.APIBaseUrl + 'translations/';
