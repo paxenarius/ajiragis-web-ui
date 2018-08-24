@@ -21,6 +21,8 @@
                   :items="fromLanguages"
                   v-model="languageFrom"
                   label="From"
+                  itam-value="id"
+                  item-text="name"
                   single-line
                   v-on:change="randomizeWord"
               ></v-select>
@@ -36,6 +38,8 @@
               <v-select
                   :items="toLanguages"
                   v-model="languageTo"
+                  itam-value="id"
+                  item-text="name"
                   label="To"
                   single-line
               ></v-select>
@@ -95,7 +99,7 @@
     import axios from '~/plugins/axios'
 
     let languageUrl = process.env.APIBaseUrl +'languages/';
-    let randomWordsAPI = process.env.APIBaseUrl + 'words/?random=true&language=1';
+    let randomWordsAPI = process.env.APIBaseUrl + 'words/?random=true';
     let translationUrl = process.env.APIBaseUrl + 'translations/';
 
     export default {
@@ -125,9 +129,9 @@
         }
       },
       methods: {
-        randomizeWord (language) {
+        randomizeWord () {
           var self = this;
-          axios.get(randomWordsAPI)
+          axios.get(randomWordsAPI +'&language=' + 1)
           .then(function (response) {
             self.word = response.data[0].word;
             self.wordDetails = response.data[0];
@@ -147,7 +151,13 @@
           };
           axios.post(translationUrl, translationData)
           .then(function (response) {
-
+            self.languageFrom = {};
+            self.languageTo = {};
+            self.partOfSpeech = null;
+            self.confidence = 0;
+            self.word = null;
+            self.translation = '';
+            self.sentence ='';
           })
           .catch(function (error) {
             console.log(error);
@@ -162,11 +172,8 @@
           var self = this;
           axios.get(languageUrl)
           .then(function (response) {
-            response.data.forEach(function (value) {
-              value.text = value.name;
-              self.fromLanguages.push(value);
-              self.toLanguages.push(value);
-            });
+            self.fromLanguages = response.data;
+            self.toLanguages = response.data;
           })
           .catch(function (error) {
             console.log(error);

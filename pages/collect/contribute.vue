@@ -87,7 +87,8 @@
           };
           axios.post(contributionUrl, contributionData)
           .then(function (response) {
-
+            self.contributionLanguage = {};
+            self.text = null;
           })
           .catch(function (error) {
             console.log(error);
