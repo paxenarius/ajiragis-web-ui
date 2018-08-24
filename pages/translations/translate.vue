@@ -64,7 +64,7 @@
           ></v-select>
           <v-layout row wrap>
             <v-flex xs11>
-              <v-slider label="Confidence" v-model="confidence" color="blue"></v-slider>
+              <v-slider label="Confidence" v-model="confidence" color="blue" max="10"></v-slider>
             </v-flex>
             <v-flex xs1>
               <v-text-field v-model="confidence" type="number"></v-text-field>
