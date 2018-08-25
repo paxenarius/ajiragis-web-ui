@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 800px; margin: auto;">
+  <div>
     <div
         id="e3"
 
@@ -21,6 +21,8 @@
                   :items="fromLanguages"
                   v-model="languageFrom"
                   label="From"
+                  itam-value="id"
+                  item-text="name"
                   single-line
                   v-on:change="randomizeWord"
               ></v-select>
@@ -36,6 +38,8 @@
               <v-select
                   :items="toLanguages"
                   v-model="languageTo"
+                  itam-value="id"
+                  item-text="name"
                   label="To"
                   single-line
               ></v-select>
@@ -64,7 +68,7 @@
           ></v-select>
           <v-layout row wrap>
             <v-flex xs11>
-              <v-slider label="Confidence" v-model="confidence" color="blue"></v-slider>
+              <v-slider label="Confidence" v-model="confidence" color="blue" max="10"></v-slider>
             </v-flex>
             <v-flex xs1>
               <v-text-field v-model="confidence" type="number"></v-text-field>
@@ -92,6 +96,12 @@
 </template>
 
 <script>
+    import axios from '~/plugins/axios'
+
+    let languageUrl = process.env.APIBaseUrl +'languages/';
+    let randomWordsAPI = process.env.APIBaseUrl + 'words/?random=true';
+    let translationUrl = process.env.APIBaseUrl + 'translations/';
+
     export default {
       name: 'mywork',
       data () {
@@ -105,124 +115,80 @@
           translation: '',
           sentence: '',
           items: [
-            { text: 'Noun' },
-            { text: 'Verb' },
-            { text: 'Participle' },
-            { text: 'Article' },
-            { text: 'Pronoun' },
-            { text: 'Preposition' },
-            { text: 'Adverb' },
-            { text: 'Conjunction' }
+            { text: 'NOUN' },
+            { text: 'VERB' },
+            { text: 'ADJECTIVE' },
+            { text: 'ADVERB' },
+            { text: 'PRONOUN' },
+            { text: 'PREPOSITION' },
+            { text: 'INTERJECTION' },
+            { text: 'CONJUNCTION' }
           ],
-          fromLanguages: [
-            {text: 'Kisii'},
-            {text: 'Maasai'}
-          ],
-          toLanguages: [
-            {text: 'English'},
-            {text: 'Swahili'},
-            {text: 'Gikuyu'},
-            {text: 'Luo'}
-          ],
-          kisii: [
-            'Inchu',
-            'Genda',
-            'Tara',
-            'Minyoka',
-            'Kwana',
-            'Ogokwania',
-            'Rika',
-            'Tegerera',
-            'Rigereria',
-            'Abanto',
-            'Omonto',
-            'Omosacha',
-            'Omokungu',
-            'Omomura',
-            'Omoiseke',
-            'Tata',
-            'Mama',
-            'Endgera',
-            'Okokima',
-            'Chinyeni',
-            'Enyama',
-            'Omogati',
-            'Echae',
-            'Amache',
-            'Amabere',
-            'Obori/wimbi',
-            'Ebituma',
-            'Amarabwoni',
-            'Abukato',
-            'Omochere',
-            'Abukato',
-            'Amatoke',
-            'Ebisukari',
-            'Esukari',
-            'Omonyo'
-          ],
-          maasai: [
-            'Engatek/dukuya',
-            'oliare',
-            'Taisere',
-            'Tataji',
-            'Kewarrie',
-            'Taisere',
-            'Ermatunda',
-            'Ermariko',
-            'Enyanya',
-            'Ermurungu',
-            'Engitunguu',
-            'Olodo',
-            'Olonyori',
-            'Embuse',
-            'Oloiborr',
-            'Olorok',
-            'Olmuje',
-            'Edaa E tedekanya',
-            'EdaaE dama',
-            'Edaa Nilo Airraje',
-            'Kule',
-            'arkahawa',
-            'olmukate',
-            'Etikinya',
-            'Osiuo',
-            'Enjan/ehaita',
-            'Albarafu',
-            'Erobi',
-            'Erowua',
-            'Alayeni'
-          ]
+          fromLanguages: [],
+          toLanguages: [],
         }
       },
       methods: {
-        randomizeWord (language) {
-          console.log(language)
-          this.languageFrom = language
-          if (language.text === 'Kisii') {
-            this.word = this.kisii[Math.floor(Math.random() * this.kisii.length)]
-          } else if (language.text === 'Maasai') {
-            this.word = this.kisii[Math.floor(Math.random() * this.kisii.length)]
-          } else {
-            this.word = 'Select word'
-          }
+        randomizeWord () {
+          var self = this;
+          axios.get(randomWordsAPI +'&language=' + 1)
+          .then(function (response) {
+            self.word = response.data[0].word;
+            self.wordDetails = response.data[0];
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         },
         next () {
-          this.randomizeWord(this.languageFrom)
-          this.translation = ''
-          this.sentence = ''
-          this.confidence = 0
-          this.points++
+          var self = this;
+          var translationData = {
+              word: self.wordDetails.id,
+              translate_to: self.languageTo.id,
+              translation: self.translation,
+              example_sentence: self.sentence,
+              confidence_level: self.confidence
+          };
+          axios.post(translationUrl, translationData)
+          .then(function (response) {
+            self.languageFrom = {};
+            self.languageTo = {};
+            self.partOfSpeech = null;
+            self.confidence = 0;
+            self.word = null;
+            self.translation = '';
+            self.sentence ='';
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         },
         done () {
+
           this.$router.push({path: '/'})
+
+        },
+        getLanguages: function(){
+          var self = this;
+          axios.get(languageUrl)
+          .then(function (response) {
+            self.fromLanguages = response.data;
+            self.toLanguages = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         }
       },
       watch: {
         watchLanguagesFrom: function (newVal) {
           this.randomizeWord(newVal)
         }
-      }
+      },
+      mounted: function () {
+      this.getLanguages();
+
+    }
     }
 </script>
 

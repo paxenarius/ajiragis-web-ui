@@ -166,7 +166,10 @@
               toggle_on: 'dataCollectorClick'
             }
           ],
-          { icon: 'compare_arrows', title: 'Translate', to: '/translate' }
+          { icon: 'compare_arrows', title: 'Translate', to: '/translations/translate' },
+          { icon: 'compare_arrows', title: 'Translations', to: '/translations/translations' },
+          { icon: 'compare_arrows', title: 'Collect', to: '/collect/contribute' },
+          { icon: 'compare_arrows', title: 'Contributions', to: '/collect/contributions' }
         ],
         submenuToggles: {dataCollectorClick:false},
         miniVariant: false,
