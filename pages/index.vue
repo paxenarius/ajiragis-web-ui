@@ -40,10 +40,7 @@
   import Profile from '~/components/Profile'
   import Notifications from '~/components/Notifications'
   import LoginForm from '~/components/LoginForm'
-  import ContributionForm from '~/components/data_collector/Contribute'
-  import ContributionsList from '~/components/data_collector/ContributionsList'
   import axios from '~/plugins/axios'
-
 
   let dashboardURL = process.env.APIBaseUrl +'dashboard/';
 
@@ -73,9 +70,7 @@
       Wallet,
       Profile,
       Notifications,
-      LoginForm,
-      ContributionForm,
-      ContributionsList
+      LoginForm
     },
     methods: {
       getDashboard: function(){
