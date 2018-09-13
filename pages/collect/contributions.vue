@@ -2,7 +2,6 @@
   <v-data-table
     :headers="headers"
     :items="contributions"
-    :loading="true"
     class="h3"
   >
   <template slot="items" slot-scope="props">
