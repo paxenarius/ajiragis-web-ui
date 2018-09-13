@@ -2,7 +2,6 @@
   <v-data-table
     :headers="headers"
     :items="translations"
-    :loading="true"
     hide-actions
     class="h3"
   >
@@ -65,9 +64,9 @@
 </template>
 
 <script>
-    import axios from '~/plugins/axios'
+  import axios from '~/plugins/axios'
 
-    let translationUrl = process.env.APIBaseUrl + 'translations/';
+  let translationUrl = process.env.APIBaseUrl + 'translations/';
 
   export default {
     name: 'translations',
