@@ -1,7 +1,7 @@
 
 module.exports = {
   router: {
-    base: '/translator/'
+    base: '/'
   },
   /*
   ** Headers of the page

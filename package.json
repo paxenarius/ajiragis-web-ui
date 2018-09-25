@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build": "nuxt build --spa",
     "start": "nuxt start",
+    "spa": "nuxt --spa",
     "generate": "nuxt generate",
     "test": "ava --serial --verbose"
   },
@@ -27,6 +28,7 @@
     "firebase": "^5.1.0",
     "jsdom": "^11.11.0",
     "nuxt": "^1.0.0",
+    "oidc-client": "^1.5.2",
     "vuetify": "^1.1.14"
   },
   "devDependencies": {
