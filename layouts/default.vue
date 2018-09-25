@@ -146,26 +146,6 @@
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
-          [
-            {
-              icon: 'input',
-              title: 'Data-Collector',
-              to: '/Data-Collector',
-              toggle_on: 'dataCollectorClick'
-            },
-            {
-              icon: 'input',
-              title: 'Contribute',
-              to: '/contribute',
-              toggle_on: 'dataCollectorClick'
-            },
-            {
-              icon: 'table',
-              title: 'Contributions',
-              to: '/contributionslist',
-              toggle_on: 'dataCollectorClick'
-            }
-          ],
           { icon: 'compare_arrows', title: 'Translate', to: '/translations/translate' },
           { icon: 'compare_arrows', title: 'Translations', to: '/translations/translations' },
           { icon: 'compare_arrows', title: 'Collect', to: '/collect/contribute' },
