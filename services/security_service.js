@@ -8,7 +8,7 @@ var mgr = new Oidc.UserManager({
   redirect_uri: 'https://sigma-b6495.firebaseapp.com/callback.html',
   response_type: 'id_token token',
   scope: 'openid profile address roles',
-  post_logout_redirect_uri: 'https://sigma-b6495.firebaseapp.com',
+  post_logout_redirect_uri: 'https://sigma-b6495.firebaseapp.com/index.html',
   silent_redirect_uri: 'https://sigma-b6495.firebaseapp.com/silent-renew.html',
   accessTokenExpiringNotificationTime: 10,
   automaticSilentRenew: true,
