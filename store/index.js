@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import firebase, {auth, GoogleProvider} from '@/services/fireinit.js'
+import Mgr from '@/services/security_service'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -33,7 +34,13 @@ const createStore = () => {
           })
         })
       },
-
+      signInWithAjira ({commit}) {
+        return new Promise((resolve, reject) => {
+          new Mgr().signIn().then(function (result) {
+            resolve()
+          })
+        })
+      },
       signOut ({commit}) {
         auth.signOut().then(() => {
           commit('setUser', null)

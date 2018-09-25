@@ -1,14 +1,14 @@
-import Oidc from 'oidc-client';
+import Oidc from 'oidc-client'
 
 var mgr = new Oidc.UserManager({
-  //userStore: new Oidc.WebStorageStateStore(),
+  // userStore: new Oidc.WebStorageStateStore(),
   userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
   authority: 'https://onesha.company/',
-  client_id: 'test_implicit_app',
+  client_id: 'ajira_data_collector',
   redirect_uri: 'https://sigma-b6495.firebaseapp.com/callback.html',
   response_type: 'id_token token',
   scope: 'openid profile address roles',
-  post_logout_redirect_uri: 'https://sigma-b6495.firebaseapp.com/translator/',
+  post_logout_redirect_uri: 'https://sigma-b6495.firebaseapp.com',
   silent_redirect_uri: 'https://sigma-b6495.firebaseapp.com/silent-renew.html',
   accessTokenExpiringNotificationTime: 10,
   automaticSilentRenew: true,
@@ -16,47 +16,46 @@ var mgr = new Oidc.UserManager({
   loadUserInfo: true
 })
 
-Oidc.Log.logger = console;
-Oidc.Log.level = Oidc.Log.INFO;
+Oidc.Log.logger = console
+Oidc.Log.level = Oidc.Log.INFO
 
-mgr.events.addUserLoaded(function (user) {  
-  console.log('New User Loaded：', arguments);
+mgr.events.addUserLoaded(function (user) {
+  console.log('New User Loaded：', arguments)
   console.log('Acess_token: ', user.access_token)
-});
+})
 
 mgr.events.addAccessTokenExpiring(function () {
-  console.log('AccessToken Expiring：', arguments);
-});
+  console.log('AccessToken Expiring：', arguments)
+})
 
 mgr.events.addAccessTokenExpired(function () {
-  console.log('AccessToken Expired：', arguments);  
-  alert('Session expired. Going out!');
+  console.log('AccessToken Expired：', arguments)
+  alert('Session expired. Going out!')
   mgr.signoutRedirect().then(function (resp) {
-    console.log('signed out', resp);
+    console.log('signed out', resp)
   }).catch(function (err) {
     console.log(err)
   })
-});
+})
 
 mgr.events.addSilentRenewError(function () {
-  console.error('Silent Renew Error：', arguments);
-});
+  console.error('Silent Renew Error：', arguments)
+})
 
 mgr.events.addUserSignedOut(function () {
-  alert('Going out!');
-  console.log('UserSignedOut：', arguments);
-  //mgr.removeUser();
+  alert('Going out!')
+  console.log('UserSignedOut：', arguments)
+  // mgr.removeUser();
   mgr.signoutRedirect().then(function (resp) {
-    console.log('signed out', resp);
+    console.log('signed out', resp)
   }).catch(function (err) {
     console.log(err)
   })
-});
+})
 
-export default class SecurityService {  
-
-  constructor(){
-    console.log('Construtor')   
+export default class SecurityService {
+  constructor () {
+    console.log('Construtor')
   }
 
   getUser () {
@@ -66,13 +65,13 @@ export default class SecurityService {
         if (user == null) {
           self.signIn()
           return resolve(null)
-        } else{          
+        } else {
           return resolve(user)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
   getSignedIn () {
@@ -82,13 +81,13 @@ export default class SecurityService {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{                    
+        } else {
           return resolve(true)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
   signIn () {
@@ -97,9 +96,9 @@ export default class SecurityService {
     })
   }
   signOut () {
-    var self = this;
-    mgr.signoutRedirect().then(function (resp) {      
-      console.log('signed out', resp);
+    var self = this
+    mgr.signoutRedirect().then(function (resp) {
+      console.log('signed out', resp)
     }).catch(function (err) {
       console.log(err)
     })
@@ -112,13 +111,13 @@ export default class SecurityService {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 
@@ -129,81 +128,81 @@ export default class SecurityService {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user.profile)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 
-  getIdToken(){
+  getIdToken () {
     let self = this
     return new Promise((resolve, reject) => {
       mgr.getUser().then(function (user) {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user.id_token)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 
-  getSessionState(){
+  getSessionState () {
     let self = this
     return new Promise((resolve, reject) => {
       mgr.getUser().then(function (user) {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user.session_state)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 
-  getAcessToken(){
+  getAcessToken () {
     let self = this
     return new Promise((resolve, reject) => {
       mgr.getUser().then(function (user) {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user.access_token)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 
-  getScopes(){
+  getScopes () {
     let self = this
     return new Promise((resolve, reject) => {
       mgr.getUser().then(function (user) {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user.scopes)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 
@@ -214,13 +213,13 @@ export default class SecurityService {
         if (user == null) {
           self.signIn()
           return resolve(false)
-        } else{          
+        } else {
           return resolve(user.profile.role)
         }
       }).catch(function (err) {
         console.log(err)
         return reject(err)
-      });
+      })
     })
   }
 }

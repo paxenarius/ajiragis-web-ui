@@ -43,6 +43,7 @@
 
                   <v-btn color="info" class="facebook" dark block>Sign in using Facebook</v-btn>
                   <v-btn color="info" dark block>Sign in using Twitter</v-btn>
+                  <v-btn color="info" dark block  @click.native="ajiraSignIn">Sign in using Ajira</v-btn>
               </div>
             </v-card-text>
           </v-card>
@@ -53,35 +54,49 @@
 
 <script>
   import axios from '~/plugins/axios'
+  import Mgr from '~/services/security_service'
 
-  let loginURL = process.env.APIBaseUrl + 'get_token/';
+  let loginURL = process.env.APIBaseUrl + 'get_token/'
 
-    export default {
-      name: 'LoginForm',
-      methods: {
-        googleSignUp: function () {
-          this.$store.dispatch('signInWithGoogle').then(() => {
-            console.log('inside then statement on login')
-          }).catch((e) => {
-            console.log(e.message)
-          })
-        },
-        getAPIToken: function () {
-        var self = this;
-        axios.post(loginURL, {username: this.email, password:this.password})
-        .then(function (response) {
-          self.$store.commit('setUser', response.data.token);
-          axios.defaults.headers.common['Authorization'] = 'Token ' + response.data.token
-          window.localStorage.setItem('userToken', response.data.token);
-          self.$router.push({path: '/'});
+  export default {
+    name: 'LoginForm',
+    data () {
+      return {
+        mgr: new Mgr(),
+        signedIn: true
+      }
+    },
+    methods: {
+      ajiraSignIn: function () {
+        this.$store.dispatch('signInWithAjira').then(() => {
+          console.log('inside then statement on login')
+        }).catch((e) => {
+          console.log(e.message)
         })
-        .catch(function (error) {
-          self.loginError ="Invalid credentials provided"
-          console.log(error);
-        });
-        }
+      },
+      googleSignUp: function () {
+        this.$store.dispatch('signInWithGoogle').then(() => {
+          console.log('inside then statement on login')
+        }).catch((e) => {
+          console.log(e.message)
+        })
+      },
+      getAPIToken: function () {
+        var self = this
+        axios.post(loginURL, {username: this.email, password: this.password})
+          .then(function (response) {
+            self.$store.commit('setUser', response.data.token)
+            axios.defaults.headers.common['Authorization'] = 'Token ' + response.data.token
+            window.localStorage.setItem('userToken', response.data.token)
+            self.$router.push({path: '/'})
+          })
+          .catch(function (error) {
+            self.loginError = 'Invalid credentials provided'
+            console.log(error)
+          })
       }
     }
+  }
 </script>
 
 <style scoped>
