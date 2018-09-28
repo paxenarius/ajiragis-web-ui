@@ -1,5 +1,4 @@
 import Oidc from 'oidc-client'
-
 var mgr = new Oidc.UserManager({
   // userStore: new Oidc.WebStorageStateStore(),
   userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
@@ -75,11 +74,9 @@ export default class SecurityService {
     })
   }
   getUser2 () {
-    let self = this
     return new Promise((resolve, reject) => {
       mgr.getUser().then(function (user) {
         if (user == null) {
-          self.signIn()
           return resolve(null)
         } else {
           return resolve(user)

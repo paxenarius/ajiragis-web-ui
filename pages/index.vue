@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div v-if="!user">
-      <div class="text-xs-center">
-        <img src="/logo.png" alt="logo" class="logo" />
-      </div>
-      <login-form></login-form>
-    </div>
-    <v-container fluid grid-list-sm v-else>
+    <v-container fluid grid-list-sm>
       <v-layout row wrap>
         <v-flex>
           <work :dashboardData="dashboardData"></work>
@@ -90,9 +84,12 @@ export default {
     mounted: function () {
       var self = this
       this.getDashboard()
-      this.mgr.getUser().then(function (user) {
-        console.log(user)
-        self.user = user
+      this.mgr.getUser2().then(function (user) {
+        if (user == null) {
+          self.$router.push('/login')
+        } else {
+          self.user = user
+        }
       }).catch(function (error) {
         console.log(error)
       })
