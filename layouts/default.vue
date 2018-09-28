@@ -88,11 +88,11 @@
           <v-card dark color="red darken-1">
             <v-list>
               <v-list-tile avatar>
-                <v-list-tile-avatar>
-                  <img :src="$store.state.user.photoURL" alt="John">
-                </v-list-tile-avatar>
+                <!--<v-list-tile-avatar>-->
+                  <!--<img :src="$store.state.user.photoURL" alt="John">-->
+                <!--</v-list-tile-avatar>-->
                 <v-list-tile-content>
-                  <v-list-tile-title v-if="user.displayName">{{user.displayName}}</v-list-tile-title>
+                  <v-list-tile-title v-if="user.profile.email">{{user.profile.email}}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-divider></v-divider>
@@ -138,6 +138,7 @@
 </template>
 
 <script>
+  import Mgr from '~/services/security_service'
   export default {
     data () {
       return {
@@ -151,33 +152,45 @@
           { icon: 'compare_arrows', title: 'Collect', to: '/collect/contribute' },
           { icon: 'compare_arrows', title: 'Contributions', to: '/collect/contributions' }
         ],
-        submenuToggles: {dataCollectorClick:false},
+        submenuToggles: {dataCollectorClick: false},
         miniVariant: false,
         right: true,
         rightDrawer: false,
         title: 'Ajira GIS',
-        menu: false
-      }
-    },
-    computed: {
-      user () {
-        return this.$store.getters.activeUser
+        menu: false,
+        mgr: new Mgr(),
+        user: null
       }
     },
     methods: {
       logout () {
-        this.$store.dispatch('signOut').then(() => {
-          this.$router.push('/')
+        // this.$store.dispatch('signOutWithAjira').then(() => {
+        //   this.$router.push('/login')
+        // })
+        this.mgr.signOut().then(function (result) {
+          console.log('sign out', result)
         })
       },
-      toggleSubMenu(menu_activation_variable){
-        if(this.$data.submenuToggles[menu_activation_variable] ===  false){
-          this.$data.submenuToggles[menu_activation_variable] =  true;
-        }
-        else{
-          this.$data.submenuToggles[menu_activation_variable] =  false;
+      toggleSubMenu (menu_activation_variable) {
+        if (this.$data.submenuToggles[menu_activation_variable] === false) {
+          this.$data.submenuToggles[menu_activation_variable] = true
+        } else {
+          this.$data.submenuToggles[menu_activation_variable] = false
         }
       }
+    },
+    mounted: function () {
+      var self = this
+      this.mgr.getUser2().then(function (user) {
+        if (user == null) {
+          self.$router.push('/login')
+        } else {
+          console.log(user)
+          self.user = user
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   }
 </script>

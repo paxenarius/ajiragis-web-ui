@@ -6,13 +6,13 @@
             <v-card-text class="pt-4">
               <div>
 
-                  <!--<v-alert-->
-                    <!--:value="true"-->
-                    <!--v-if="loginError"-->
-                    <!--type="error"-->
-                  <!--&gt;-->
-                    <!--{{ LoginError }}-->
-                  <!--</v-alert>-->
+                  <v-alert
+                    :value="true"
+                    v-if="loginError"
+                    type="error"
+                  >
+                    {{ LoginError }}
+                  </v-alert>
                   <!--<v-form v-model="valid" ref="form">-->
                     <!--<v-text-field-->
                       <!--label="Enter your e-mail address"-->
@@ -68,9 +68,8 @@
     },
     methods: {
       ajiraSignIn: function () {
-        var self = this
         this.$store.dispatch('signInWithAjira').then(() => {
-          self.$router.push({path: '/'})
+          console.log('inside then state on signInWithAjira')
         }).catch((e) => {
           console.log(e.message)
         })

@@ -89,6 +89,7 @@ export default {
           self.$router.push('/login')
         } else {
           self.user = user
+          console.log(user)
         }
       }).catch(function (error) {
         console.log(error)
