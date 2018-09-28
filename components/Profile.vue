@@ -47,12 +47,12 @@
         type: Object,
         required: true,
         default: {
-          "my_profile": {
-              "username": "",
-              "first_name": "",
-              "last_name": "",
-              "email": "",
-              "last_login": ""
+          'my_profile': {
+            'username': '',
+            'first_name': '',
+            'last_name': '',
+            'email': '',
+            'last_login': ''
           }
         }
       }

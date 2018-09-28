@@ -8,7 +8,7 @@ var mgr = new Oidc.UserManager({
   redirect_uri: 'https://sigma-b6495.firebaseapp.com/callback.html',
   response_type: 'id_token token',
   scope: 'openid profile address roles',
-  post_logout_redirect_uri: 'https://sigma-b6495.firebaseapp.com/index.html',
+  post_logout_redirect_uri: 'https://sigma-b6495.firebaseapp.com/login',
   silent_redirect_uri: 'https://sigma-b6495.firebaseapp.com/silent-renew.html',
   accessTokenExpiringNotificationTime: 10,
   automaticSilentRenew: true,
@@ -59,6 +59,22 @@ export default class SecurityService {
   }
 
   getUser () {
+    let self = this
+    return new Promise((resolve, reject) => {
+      mgr.getUser().then(function (user) {
+        if (user == null) {
+          self.signIn()
+          return resolve(null)
+        } else {
+          return resolve(user)
+        }
+      }).catch(function (err) {
+        console.log(err)
+        return reject(err)
+      })
+    })
+  }
+  getUser2 () {
     let self = this
     return new Promise((resolve, reject) => {
       mgr.getUser().then(function (user) {

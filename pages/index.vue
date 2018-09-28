@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!$store.state.user">
+    <div v-if="!user">
       <div class="text-xs-center">
         <img src="/logo.png" alt="logo" class="logo" />
       </div>
@@ -41,29 +41,32 @@
   import Notifications from '~/components/Notifications'
   import LoginForm from '~/components/LoginForm'
   import axios from '~/plugins/axios'
+  import Mgr from '~/services/security_service'
 
-  let dashboardURL = process.env.APIBaseUrl +'dashboard/';
+  let dashboardURL = process.env.APIBaseUrl + 'dashboard/'
 
-  export default {
+export default {
     name: 'main',
     data: () => ({
       dashboardData: {
-          "my_work": {
-            "translations_count": 0,
-            "contribution_count": 0
-          },
-          "my_wallet": {
-              "contribution_payment": 0,
-              "translation_payment": 0
-          },
-          "my_profile": {
-              "username": "",
-              "first_name": "",
-              "last_name": "",
-              "email": ""
-          },
-          "notifications": []
-      }
+        'my_work': {
+          'translations_count': 0,
+          'contribution_count': 0
+        },
+        'my_wallet': {
+          'contribution_payment': 0,
+          'translation_payment': 0
+        },
+        'my_profile': {
+          'username': '',
+          'first_name': '',
+          'last_name': '',
+          'email': ''
+        },
+        'notifications': []
+      },
+      mgr: new Mgr(),
+      user: null
     }),
     components: {
       Work,
@@ -73,20 +76,26 @@
       LoginForm
     },
     methods: {
-      getDashboard: function(){
-        var self = this;
+      getDashboard: function () {
+        var self = this
         axios.get(dashboardURL)
-        .then(function (response) {
-          self.dashboardData = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(function (response) {
+            self.dashboardData = response.data
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
       }
     },
     mounted: function () {
-      this.getDashboard();
-
+      var self = this
+      this.getDashboard()
+      this.mgr.getUser().then(function (user) {
+        console.log(user)
+        self.user = user
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   }
 </script>

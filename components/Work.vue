@@ -46,9 +46,9 @@
         type: Object,
         required: true,
         default: {
-          "my_work": {
-            "translations_count": 0,
-            "contribution_count": 0
+          'my_work': {
+            'translations_count': 0,
+            'contribution_count': 0
           }
         }
       }

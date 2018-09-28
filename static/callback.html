@@ -11,7 +11,7 @@
     var mgr = new Oidc.UserManager({userStore: new Oidc.WebStorageStateStore()});
 
     mgr.signinRedirectCallback().then(function (user) {
-      window.location.href = '../dist/index.html';
+      window.location.href = 'https://sigma-b6495.firebaseapp.com';
     }).catch(function (err) {
       console.log(err);
     });
