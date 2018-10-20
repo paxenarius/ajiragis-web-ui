@@ -54,6 +54,7 @@ module.exports = {
     }
   },
   env: {
-    APIBaseUrl: process.env.API_BASE_URL || 'http://localhost:8000/ajiragis/api/v1/'
+    APIBaseUrl: process.env.API_BASE_URL || 'http://localhost:8000/ajiragis/api/v1/',
+    LoginUrl: process.env.LOGIN_URL || 'https://login.ajiradigital.go.ke/auth'
   }
 }

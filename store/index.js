@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import firebase, {auth, GoogleProvider} from '@/services/fireinit.js'
+import firebase, { auth, GoogleProvider } from '@/services/fireinit.js'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -13,19 +13,19 @@ const createStore = () => {
       }
     },
     mutations: {
-      setUser (state, payload) {
+      setUser(state, payload) {
         state.user = payload
       },
-      toggleSidebar (state) {
+      toggleSidebar(state) {
         state.sidebar = !state.sidebar
       }
     },
     actions: {
-      autoSignIn ({commit}, payload) {
+      autoSignIn({ commit }, payload) {
         commit('setUser', payload)
       },
 
-      signInWithGoogle ({commit}) {
+      signInWithGoogle({ commit }) {
         return new Promise((resolve, reject) => {
           // auth.signInWithRedirect(GoogleProvider)
           auth.signInWithPopup(GoogleProvider).then(function (result) {
@@ -34,7 +34,7 @@ const createStore = () => {
         })
       },
 
-      signOut ({commit}) {
+      signOut({ commit }) {
         auth.signOut().then(() => {
           commit('setUser', null)
         }).catch(err => console.log(err))

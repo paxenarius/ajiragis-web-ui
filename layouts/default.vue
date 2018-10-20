@@ -79,36 +79,11 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="user" id="user" class="text-xs-center">
-        <v-menu
-            offset-x
-            :close-on-content-click="false"
-            :nudge-top="200"
-            v-model="menu">
-          <v-btn icon slot="activator"><v-icon medium>more_vert</v-icon></v-btn>
-          <v-card dark color="red darken-1">
-            <v-list>
-              <v-list-tile avatar>
-                <v-list-tile-avatar>
-                  <img :src="$store.state.user.photoURL" alt="John">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title v-if="user.displayName">{{user.displayName}}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-divider></v-divider>
-
-              <v-list-tile>
-                <v-spacer></v-spacer>
-                <v-list-tile-action>
-                  <v-btn primary class="mt-2" color="red darken-2" @click.native="logout">
-                    Logout
-                  </v-btn>
-                </v-list-tile-action>
-              </v-list-tile>
-            </v-list>
-          </v-card>
-        </v-menu>
-
+        <v-list-tile-action>
+          <v-btn primary class="mt-2" color="red darken-2" @click.native="logout">
+            Logout
+          </v-btn>
+        </v-list-tile-action>
       </div>
     </v-toolbar>
     <v-content>

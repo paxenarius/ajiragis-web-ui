@@ -37,12 +37,7 @@
                   </v-form>
                   <h2 style="text-align: center;"> - OR - </h2>
 
-                  <v-btn color="error" dark block @click.native="googleSignUp">
-                    Sign in using Google
-                  </v-btn>
-
-                  <v-btn color="info" class="facebook" dark block>Sign in using Facebook</v-btn>
-                  <v-btn color="info" dark block>Sign in using Twitter</v-btn>
+                  <a :href="ssoURL" class="v-btn v-btn--block theme--dark error">Login With Ajira</a>
               </div>
             </v-card-text>
           </v-card>
@@ -54,10 +49,26 @@
 <script>
   import axios from '~/plugins/axios'
 
+  const client_id = 'ajira_world',
+    redirect_uri = 'https://dev1.ajira.world/translator/auth',
+    ssoURL = process.env.LoginUrl + `?client_id=${encodeURIComponent(client_id)}&redirect_uri=${encodeURIComponent(redirect_uri)}&response_type=id_token token&scope=openid phone email profile&nonce=123&prompt=login`;
+
   let loginURL = process.env.APIBaseUrl + 'get_token/';
 
     export default {
       name: 'LoginForm',
+      data: function () {
+        return {
+          loginError: '',
+          valid: false,
+          email: '',
+          emailRules: '',
+          password: '',
+          passwordRules: '',
+          e1: true,
+          ssoURL
+        }
+      },
       methods: {
         googleSignUp: function () {
           this.$store.dispatch('signInWithGoogle').then(() => {
@@ -67,18 +78,18 @@
           })
         },
         getAPIToken: function () {
-        var self = this;
-        axios.post(loginURL, {username: this.email, password:this.password})
-        .then(function (response) {
-          self.$store.commit('setUser', response.data.token);
-          axios.defaults.headers.common['Authorization'] = 'Token ' + response.data.token
-          window.localStorage.setItem('userToken', response.data.token);
-          self.$router.push({path: '/'});
-        })
-        .catch(function (error) {
-          self.loginError ="Invalid credentials provided"
-          console.log(error);
-        });
+          var self = this;
+          axios.post(loginURL, {username: this.email, password:this.password})
+          .then(function (response) {
+            self.$store.commit('setUser', response.data.token);
+            axios.defaults.headers.common['Authorization'] = 'Token ' + response.data.token
+            window.localStorage.setItem('userToken', response.data.token);
+            self.$router.push({path: '/'});
+          })
+          .catch(function (error) {
+            self.loginError ="Invalid credentials provided"
+            console.log(error);
+          });
         }
       }
     }
