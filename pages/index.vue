@@ -2,7 +2,7 @@
   <div>
     <div v-if="!$store.state.user">
       <div class="text-xs-center">
-        <img src="/logo.png" alt="logo" class="logo" />
+        <img src="/translator/logo.png" alt="logo" class="logo" />
       </div>
       <login-form></login-form>
     </div>
